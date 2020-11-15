@@ -7,7 +7,7 @@ from utils.preprocess import get_keypoints
 FLAGS = flags.FLAGS
 flags.DEFINE_string('data_path', './data/training.csv', 'Path to training data')
 flags.DEFINE_list('img_size', ['96', '96'], 'Size of training image')
-flags.DEFINE_string('save_to_path', './data', 'Path to save processed data')
+flags.DEFINE_string('save_to_path', './data/processed', 'Path to save processed data')
 
 def main(argv=None):
     img_size = [int(n) for n in FLAGS.img_size]
