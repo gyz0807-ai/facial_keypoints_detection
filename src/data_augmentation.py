@@ -13,7 +13,7 @@ from utils.preprocess import _bytes_feature, serialize_example
 
 FLAGS = flags.FLAGS
 flags.DEFINE_string('processed_data_dir', './data/processed/processed_data.json', 'Path to processed data')
-flags.DEFINE_list('brightness_range', ['0.5', '1.5'], 'Range for brightness change')
+flags.DEFINE_list('brightness_range', ['0.5', '1.0'], 'Range for brightness change')
 flags.DEFINE_list('rotation_range', ['-90', '90'], 'Range for rotation change')
 flags.DEFINE_list('scale_range', ['0.5', '1'], 'Range for scale change')
 flags.DEFINE_integer('num_augmentations', 10, 'Number of augmentations for each pic')
@@ -63,6 +63,9 @@ def main(argv=None):
                     image_aug, key_pts_aug = seq(image=image, keypoints=key_pts)
                     key_pts_aug_arr = key_pts_aug.to_xy_array()
 
+                image_aug /= 255
+                key_pts_aug_arr[:, 0] /= image_aug.shape[1]
+                key_pts_aug_arr[:, 1] /= image_aug.shape[0]
                 example = serialize_example(image_aug.tostring(), key_pts_aug_arr.tostring())
                 writer.write(example)
 
