@@ -1,11 +1,12 @@
 import cv2
 import numpy as np
-from tensorflow import keras
-from time import time
 import tensorflow as tf
 
+from time import time
+from tensorflow import keras
+
 facec = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
-model = keras.models.load_model('./tmp/model_new_100')
+model = keras.models.load_model('./models/model')
 font = cv2.FONT_HERSHEY_SIMPLEX
 
 class VideoCamera(object):
